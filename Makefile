@@ -25,17 +25,10 @@ BUILD_DIR = output
 PLUGINS_DIR = plugins
 
 # Constructed files
-EXTRAS = \
-	plugins/orgmode/conf.el \
-	themes/adolf/assets/css/fonts.css
+EXTRAS =
 
 # Plug-ins to download
-PLUGINS = \
-	orgmode \
-	static_tag_cloud \
-	accordion \
-	category_prevnext \
-	similarity
+PLUGINS =
 
 # Web fonts to include (from Google Fonts)
 WEBFONTS = \
@@ -83,13 +76,6 @@ $(PLUGINS_DIR):
 	$(foreach p, $(PLUGINS), $(ACTIVATE) && $(NIKOLA) plugin -i $p)
 
 extras: $(EXTRAS)
-
-plugins/orgmode/conf.el: elisp/orgmode-conf.el
-	$(RSYNC) $< $@
-
-themes/adolf/assets/css/fonts.css:
-	$(ECHO) '' $@
-	$(foreach f, $(WEBFONTS), $(CURL) $(WEBFONTS_API)$f >> $@;)
 
 # Clean up the build, to force a complete re-build
 .PHONY: clean
